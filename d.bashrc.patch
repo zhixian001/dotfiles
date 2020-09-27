@@ -1,0 +1,7 @@
+alias ll='ls -l -G'
+alias la='ls -a -G'
+alias lla='ls -al -G'
+#alias lx='exa'
+#alias lxl='exa -l'
+#alias lxa='exa -a'
+#alias lxla='exa -al'
