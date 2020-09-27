@@ -1,0 +1,2 @@
+# For MacOS
+#export GPG_TTY=$(tty)
