@@ -1,0 +1,26 @@
+[user]
+    name       = <TBU>
+    email      = <TBU>
+#    signingkey = <TBU>
+
+[core]
+    autocrlf   = false
+    editor     = code
+
+[merge]
+    tool       = vscode
+
+[mergetool "vscode"]
+    cmd        = code --wait $MERGED
+
+[diff]
+    tool       = vscode
+
+[difftool "vscode"]
+    cmd        = code --wait --diff $LOCAL $REMOTE
+
+[commit]
+#    gpgsign    = true
+
+[gpg]
+#    program = gpg
