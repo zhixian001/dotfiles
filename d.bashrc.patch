@@ -21,6 +21,9 @@ alias dk='docker'
 alias dkc='docker-compose'
 alias d-c='docker-compose'
 
+# Colorized cat (pygmentize / pygments)
+alias ccat='pygmentize -g'
+
 # disable mac homebrew autoupdate 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
@@ -29,3 +32,5 @@ umask 0027
 
 # kill ssh-agent on disconnect
 trap 'test -n "$SSH_AGENT_PID" && eval `/usr/bin/ssh-agent -k`' 0
+
+
