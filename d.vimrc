@@ -4,6 +4,7 @@ set showcmd
 set showmatch
 set smartcase
 set mouse=a
+set ttymouse=xterm2
 set nocompatible
 set title
 syntax on
