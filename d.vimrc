@@ -36,5 +36,31 @@ set langmap=ㅁa,ㅠb,ㅊc,ㅇd,ㄷe,ㄹf,ㅎg,ㅗh,ㅑi,ㅓj,ㅏk,ㅣl,ㅡm,ㅜ
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
+" True Color
+set termguicolors
+" Fix True Color - See: https://stackoverflow.com/questions/62702766/termguicolors-in-vim-makes-everything-black-and-white
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" Settings By OS
+"   (https://stackoverflow.com/questions/2842078/how-do-i-detect-os-x-in-my-vimrc-file-so-certain-configurations-will-only-appl)
+if has("gui_running")
+  " Gvim
+  if has("gui_gtk2") || has("gui_gtk3")
+    " Linux GUI
+    set clipboard=unnamedplus
+  elseif has("gui_win32")
+    " Win32/64 GVim
+  elseif has("gui_macvim")
+    " MacVim
+    set clipboard=unnamed
+  else
+    echo "Unknown GUI system!!!!"
+  endif
+else
+  " Terminal vim
+endif
+
 " Import local config
 source ~/.vimrc.local
+
