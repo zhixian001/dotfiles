@@ -44,21 +44,18 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " Settings By OS
 "   (https://stackoverflow.com/questions/2842078/how-do-i-detect-os-x-in-my-vimrc-file-so-certain-configurations-will-only-appl)
-if has("gui_running")
-  " Gvim
-  if has("gui_gtk2") || has("gui_gtk3")
-    " Linux GUI
-    set clipboard=unnamedplus
-  elseif has("gui_win32")
-    " Win32/64 GVim
-  elseif has("gui_macvim")
-    " MacVim
-    set clipboard=unnamed
-  else
-    echo "Unknown GUI system!!!!"
-  endif
+if has("macunix")
+  " Mac
+  set clipboard=unnamed
+elseif has("unix")
+  " Linux
+  set clipboard=unnamedplus
+elseif has("win32") || has("win64")
+  " Win32/64
+elseif has("win32unix")
+  " Win32/64 Unix
 else
-  " Terminal vim
+  echo "Unknown GUI system!!!!"
 endif
 
 " Import local config
