@@ -5,3 +5,12 @@
 alias arm="env /usr/bin/arch -arm64 /opt/homebrew/bin/bash"
 alias intel="env /usr/bin/arch -x86_64 /usr/local/bin/bash"
 
+# Automatic swith (brew env)
+current_arch="$(arch)"
+if [[ $current_arch == "i386" ]]; then
+    # See: https://unix.stackexchange.com/questions/108873/removing-a-directory-from-path
+    export PATH=`echo $PATH | tr ":" "\n" | grep -v "/opt/homebrew/bin" | grep -v "/opt/homebrew/sbin" | tr "\n" ":"`
+
+else
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
