@@ -1,2 +1,7 @@
 # For MacOS
 #export GPG_TTY=$(tty)
+
+# M1 switch shell architecture
+alias arm="env /usr/bin/arch -arm64 /opt/homebrew/bin/bash"
+alias intel="env /usr/bin/arch -x86_64 /usr/local/bin/bash"
+
