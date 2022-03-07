@@ -23,3 +23,8 @@ __bash_prompt() {
 }
 __bash_prompt
 export PROMPT_DIRTRIM=4
+
+# Print OS Logo
+if [[ -f "$HOME/.oslogo" ]]; then
+    echo '' && base64 --decode "$HOME/.oslogo" | cat && echo ''
+fi
