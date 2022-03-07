@@ -1,0 +1,5 @@
+# Permission 750
+umask 0027
+
+# kill ssh-agent on disconnect
+trap 'test -n "$SSH_AGENT_PID" && eval `/usr/bin/ssh-agent -k`' 0
