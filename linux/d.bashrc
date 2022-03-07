@@ -28,3 +28,13 @@ export PROMPT_DIRTRIM=4
 if [[ -f "$HOME/.oslogo" ]]; then
     echo '' && base64 --decode "$HOME/.oslogo" | cat && echo ''
 fi
+
+# Aliases
+
+# Docker
+alias dk='docker'
+alias dkc='docker-compose'
+alias d-c='docker-compose'
+
+# Grep Color
+alias grep='grep --color=auto'
