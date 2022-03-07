@@ -8,18 +8,8 @@ if [[ $current_kernel_name == "Darwin" ]]; then
     # Mac OS
     current_cpu_m1="$(sysctl -a | grep machdep.cpu.brand_string | tr " " "\n" |  grep M1)"
     if [[ $current_cpu_m1 == "M1" ]]; then
-        # M1 family
-        if [[ -f "$HOME/dotfiles/apple_silicon/update_path.sh" ]]; then
-            source "$HOME/dotfiles/apple_silicon/update_path.sh"
-        else
-            echo "Please check \"$HOME/dotfiles/apple_silicon/update_path.sh\""
-        fi
-
-        # update go paths
-        if [[ -f "$HOME/dotfiles/apple_silicon/update_go_path.sh" ]]; then
-            source "$HOME/dotfiles/apple_silicon/update_go_path.sh"
-        else
-            echo "Please check \"$HOME/dotfiles/apple_silicon/update_go_path.sh\""
-        fi
+		for f in $HOME/dotfiles/apple_silicon/*.sh; do
+        	source "$f"
+        done
     fi
 fi
