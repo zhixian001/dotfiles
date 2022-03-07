@@ -12,14 +12,15 @@
 ln -s "$PWD/d.vimrc" ~/.vimrc
 ```
 
-## Usage (.patch file)
+## Usage (bashrc / bash_profile files)
 
 ### 1. Clone
 
-### 2. Append to existing file
-
-- example (.bashrc)
+### 2. Append to original bashrc / profile files
 
 ```bash
-cat d.bashrc.patch >> ~/.bashrc
+echo "export JH_DOTFILES_DIR=\"$HOME/dotfiles\"" >> ~/.bashrc
+echo "export JH_DOTFILES_DIR=\"$HOME/dotfiles\"" >> ~/.bash_profile
+echo "source \"\$JH_DOTFILES_DIR\"/d.bashrc" >> ~/.bashrc
+echo "source \"\$JH_DOTFILES_DIR\"/d.bash_profile" >> ~/.bash_profile
 ```

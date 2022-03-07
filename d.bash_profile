@@ -1,5 +1,6 @@
-# PS1 Theme
-# Insert this before conda script
+# OS independent settings
+
+# PS1
 # Codespaces bash prompt theme
 __bash_prompt() {
     local userpart='`export XIT=$? \
@@ -25,40 +26,23 @@ __bash_prompt() {
 __bash_prompt
 export PROMPT_DIRTRIM=4
 
+# Print OS Logo
+if [[ -f "$HOME/.oslogo" ]]; then
+    echo '' && base64 --decode "$HOME/.oslogo" | cat && echo ''
+fi
 
-# Aliases
-# ls
-alias l='ls -CF'
-alias ll='ls -l -G'
-# alias ll='ls -alF'
-alias la='ls -a -G'
-# alias la='ls -A'
-alias lla='ls -al -G'
+# ====================================================================== #
 
-#alias lx='exa'
-#alias lxl='exa -l'
-#alias lxa='exa -a'
-#alias lxla='exa -al'
+# OS Dependent settings
+JH_OS_NAME="$(uname -s)"
 
-# pigz
-alias tarpigz='tar --use-compress-program="pigz -k " -cf'
-alias tarunpigz='tar --use-compress-program="unpigz -k" -xf'
-
-# Docker
-alias dk='docker'
-alias dkc='docker-compose'
-alias d-c='docker-compose'
-
-# Colorized cat (pygmentize / pygments)
-alias ccat='pygmentize -g'
-
-# disable mac homebrew autoupdate 
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# Permission 750
-umask 0027
-
-# kill ssh-agent on disconnect
-trap 'test -n "$SSH_AGENT_PID" && eval `/usr/bin/ssh-agent -k`' 0
-
-
+if [[ $JH_OS_NAME == "Darwin" ]]; then
+    # Mac OS
+    [[ -r "$JH_DOTFILES_DIR/macos/d.bash_profile" ]] && . "$JH_DOTFILES_DIR/macos/d.bash_profile"
+elif [[ $JH_OS_NAME == "Linux" ]]; then
+    # Linux
+    [[ -r "$JH_DOTFILES_DIR/linux/d.bash_profile" ]] && . "$JH_DOTFILES_DIR/linux/d.bash_profile"
+else
+    # Unknown
+    echo "(bash_profile) Unknown OS NAME: ${JH_OS_NAME}"
+fi
