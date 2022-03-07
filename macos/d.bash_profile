@@ -51,9 +51,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# Color Generator
-export LS_COLORS="$(vivid generate snazzy)"
-
 export GPG_TTY=$(tty)
 
 

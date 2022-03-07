@@ -26,6 +26,13 @@ __bash_prompt() {
 __bash_prompt
 export PROMPT_DIRTRIM=4
 
+# Color Generator
+if hash vivid 2>/dev/null; then
+    export LS_COLORS="$(vivid generate snazzy)"
+else
+    echo "vivid is not installed"
+fi
+
 # Print OS Logo
 if [[ -f "$HOME/.oslogo" ]]; then
     echo '' && base64 --decode "$HOME/.oslogo" | cat && echo ''

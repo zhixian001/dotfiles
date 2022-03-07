@@ -1,5 +1,13 @@
 # OS independent settings
 
+# Color Generator
+if hash vivid 2>/dev/null; then
+    export LS_COLORS="$(vivid generate snazzy)"
+else
+    echo "vivid is not installed"
+fi
+
+
 # ====================================================================== #
 
 # OS Dependent settings
