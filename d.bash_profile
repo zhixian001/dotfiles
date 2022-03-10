@@ -33,6 +33,11 @@ else
     echo "vivid is not installed"
 fi
 
+# Custom Alias / Function
+whicharch() {
+    file $(which "$@")
+}
+
 # Print OS Logo
 if [[ -f "$HOME/.oslogo" ]]; then
     echo '' && base64 --decode "$HOME/.oslogo" | cat && echo ''

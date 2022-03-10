@@ -7,6 +7,10 @@ else
     echo "vivid is not installed"
 fi
 
+# Custom Alias / Function
+whicharch() {
+    file $(which "$@")
+}
 
 # ====================================================================== #
 
