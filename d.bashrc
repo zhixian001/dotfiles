@@ -12,6 +12,10 @@ whicharch() {
     file $(which "$@")
 }
 
+pathshow() {
+    echo "$PATH" | tr ":" "\n"
+}
+
 # ====================================================================== #
 
 # OS Dependent settings

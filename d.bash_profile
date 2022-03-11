@@ -47,6 +47,10 @@ whicharch() {
     file $(which "$@")
 }
 
+pathshow() {
+    echo "$PATH" | tr ":" "\n"
+}
+
 # Print OS Logo
 if [[ -f "$HOME/.oslogo" ]]; then
     echo '' && base64 --decode "$HOME/.oslogo" | cat && echo ''
