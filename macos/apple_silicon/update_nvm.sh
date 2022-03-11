@@ -4,7 +4,7 @@ export JH_ARM_NVM_DIR="$HOME/.nvm_arm"
 export JH_X86_NVM_DIR="$HOME/.nvm"
 
 # remove previous nvm paths
-__remove_from_path "$JH_ARM_NVM_DIR" "$JH_X86_NVM_DIR"
+__remove_from_path "nvm"
 
 current_arch="$(arch)"
 if [[ $current_arch == "i386" ]]; then
