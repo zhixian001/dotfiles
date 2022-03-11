@@ -14,7 +14,7 @@ if [[ $current_arch == "i386" ]]; then
             grep -v "/opt/homebrew/bin" | \
             grep -v "/opt/homebrew/sbin" | \
             grep -v "/opt/homebrew/opt/llvm/bin" | \
-        tr "\n" ":"`
+        sed -r '/^\s*$/d' | tr "\n" ":"`
 
 else
     TMP_PATH="/opt/homebrew/opt/llvm/bin:${PATH}"
@@ -23,8 +23,7 @@ else
             grep -v "/opt/homebrew/bin" | \
             grep -v "/opt/homebrew/sbin" | \
             grep -v "/usr/local/opt/llvm/bin" | \
-        tr "\n" ":"`
+        sed -r '/^\s*$/d' | tr "\n" ":"`
 
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
-
