@@ -20,12 +20,12 @@ __bash_prompt() {
     local yellow='\[\033[1;33m\]'
 
     local architecture='`\
-        export OS=$(uname -s) \
-        export ARCH=$(arch) \
-        if [ "${OS}" = "Darwin" ]; then \
-            if [ "${ARCH}" = "arm64" ]; then \
-                echo -n "\[\033[0;36m\] " \
-            fi \
+        export OS=$(uname -s)
+        export ARCH=$(arch)
+        if [ "${OS}" = "Darwin" ]; then
+            if [ "${ARCH}" = "arm64" ]; then
+                echo -n "\[\033[0;36m\] "
+            fi
         fi`'
 
     local removecolor='\[\033[0m\]'
