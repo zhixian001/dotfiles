@@ -4,26 +4,15 @@
 alias arm="env /usr/bin/arch -arm64 /opt/homebrew/bin/bash"
 alias intel="env /usr/bin/arch -x86_64 /usr/local/bin/bash"
 
-
 current_arch="$(arch)"
 if [[ $current_arch == "i386" ]]; then
-    # See: https://unix.stackexchange.com/questions/108873/removing-a-directory-from-path
-    TMP_PATH="/usr/local/opt/llvm/bin:${PATH}"
+    __remove_from_path "/opt/homebrew/bin" "/opt/homebrew/sbin" "/opt/homebrew/opt/llvm/bin"
 
-    export PATH=`echo $TMP_PATH | tr ":" "\n" | \
-            grep -v "/opt/homebrew/bin" | \
-            grep -v "/opt/homebrew/sbin" | \
-            grep -v "/opt/homebrew/opt/llvm/bin" | \
-        sed -r '/^\s*$/d' | tr "\n" ":"`
-
+    export PATH="/usr/local/opt/llvm/bin:$PATH"
 else
-    TMP_PATH="/opt/homebrew/opt/llvm/bin:${PATH}"
+    __remove_from_path "/opt/homebrew/bin" "/opt/homebrew/sbin" "/usr/local/opt/llvm/bin"
 
-    export PATH=`echo $TMP_PATH | tr ":" "\n" | \
-            grep -v "/opt/homebrew/bin" | \
-            grep -v "/opt/homebrew/sbin" | \
-            grep -v "/usr/local/opt/llvm/bin" | \
-        sed -r '/^\s*$/d' | tr "\n" ":"`
+    export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
@@ -37,12 +26,9 @@ __reorder_path () {
     for keyword in ${high_priority_keywords[@]}; do
         local related_paths=$(echo $unordered_paths | tr " " "\n" | grep "$keyword" | sort -u)
 
-        for priority_path in ${related_paths[@]}; do
-            local tmp_path=`echo $PATH | tr ":" "\n" | \
-                grep -v "$priority_path" | sed -r '/^\s*$/d' | tr "\n" ":"`
+        __remove_from_path "${related_paths[@]}"
 
-            export PATH="$priority_path:$tmp_path"
-        done
+        export PATH="$(echo ${related_paths[@]} | tr ' ' ':'):$PATH"
     done
 
     unset __reorder_path

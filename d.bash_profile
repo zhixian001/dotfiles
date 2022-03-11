@@ -42,14 +42,8 @@ else
     echo "vivid is not installed"
 fi
 
-# Custom Alias / Function
-whicharch() {
-    file $(which "$@")
-}
-
-pathshow() {
-    echo "$PATH" | tr ":" "\n"
-}
+# load common functions
+[[ -r "$JH_DOTFILES_DIR/common_bash_functions.sh" ]] && . "$JH_DOTFILES_DIR/common_bash_functions.sh"
 
 # Print OS Logo
 if [[ -f "$HOME/.oslogo" ]]; then

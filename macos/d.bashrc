@@ -37,10 +37,8 @@ export PATH="/usr/local/sbin:$PATH:/usr/local/Cellar/avr-gcc@8/8.4.0_2/bin"
 # rbenv path setup
 RBENV_SHIMS_PATH="$HOME/.rbenv/shims"
 if [ -d "$RBENV_SHIMS_PATH" ]; then
-    TMP_PATH=`echo $PATH | tr ":" "\n" | \
-            grep -v "$RBENV_SHIMS_PATH" | \
-        tr "\n" ":"`
-    export PATH="$RBENV_SHIMS_PATH:$TMP_PATH"
+    __remove_from_path "$RBENV_SHIMS_PATH"
+    export PATH="$RBENV_SHIMS_PATH:$PATH"
 fi
 
 # =================================== #
