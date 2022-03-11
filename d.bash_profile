@@ -19,8 +19,17 @@ __bash_prompt() {
 
     local yellow='\[\033[1;33m\]'
 
+    local architecture='`\
+        export OS=$(uname -s) \
+        export ARCH=$(arch) \
+        if [ "${OS}" = "Darwin" ]; then \
+            if [ "${ARCH}" = "arm64" ]; then \
+                echo -n "\[\033[0;36m\] " \
+            fi \
+        fi`'
+
     local removecolor='\[\033[0m\]'
-    PS1="${userpart} ${lightblue}\w ${gitbranch}${removecolor}\n${yellow}\$${removecolor} "
+    PS1="${userpart} ${lightblue}\w ${architecture}${gitbranch}${removecolor}\n${yellow}\$${removecolor} "
     unset -f __bash_prompt
 }
 __bash_prompt
