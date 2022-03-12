@@ -32,7 +32,10 @@ alias grep='grep --color=auto'
 
 # PATH
 
-export PATH="/usr/local/sbin:$PATH:/usr/local/Cellar/avr-gcc@8/8.4.0_2/bin"
+# export PATH="/usr/local/sbin:$PATH:/usr/local/Cellar/avr-gcc@8/8.4.0_2/bin"
+
+append_path_leftmost_unique "/usr/local/sbin"
+append_path_rightmost_unique "/usr/local/Cellar/avr-gcc@8/8.4.0_2/bin"
 
 # rbenv path setup
 RBENV_SHIMS_PATH="$HOME/.rbenv/shims"
@@ -49,20 +52,28 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-
-
 export GPG_TTY=$(tty)
 
 
 
 # =================================== #
 
+
 # Bash Completion
+
 BREW_PREFIX=$(brew --prefix)
 
 if [[ -r "$BREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
     source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
     export BASH_COMPLETION_COMPAT_DIR="${BREW_PREFIX}/etc/bash_completion.d"
+
+    # Other Completions (brew)
+    source "$BREW_PREFIX/share/bash-completion/completions/cmake"
+    source "$BREW_PREFIX/share/bash-completion/completions/pigz"
+    source "$BREW_PREFIX/share/bash-completion/completions/psql"
+    source "$BREW_PREFIX/share/bash-completion/completions/gzip"
+    source "$BREW_PREFIX/share/bash-completion/completions/tar"
+    source "$BREW_PREFIX/share/bash-completion/completions/htop"
 fi
 
 

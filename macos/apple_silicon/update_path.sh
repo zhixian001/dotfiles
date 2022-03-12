@@ -9,6 +9,8 @@ if [[ $current_arch == "i386" ]]; then
     __remove_from_path "/opt/homebrew/bin" "/opt/homebrew/sbin" "/opt/homebrew/opt/llvm/bin"
 
     export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+    eval "$(/usr/local/bin/brew shellenv)"
 else
     __remove_from_path "/opt/homebrew/bin" "/opt/homebrew/sbin" "/usr/local/opt/llvm/bin"
 
@@ -21,22 +23,14 @@ fi
 __reorder_path () {
     local high_priority_keywords=("rbenv" "miniconda" "nvm")
 
-    local unordered_paths=`echo $PATH | tr ":" "\n" `
+    local high_priority_keywords_piped=$(echo -n "${high_priority_keywords[@]}" | tr " " "|")
+    local priority_path=$(echo -n $PATH | tr ":" "\n" | grep -E "${high_priority_keywords_piped}" | sort -u | tr "\n" ":")
 
-    local HIGH_PRIORITY_PATH=""
+    __remove_from_path "${high_priority_keywords[@]}"
 
-    for keyword in ${high_priority_keywords[@]}; do
-        local related_paths=$(echo $unordered_paths | tr " " "\n" | grep "$keyword" | sort -u)
-
-        __remove_from_path "${related_paths[@]}"
-        HIGH_PRIORITY_PATH="$(echo ${related_paths[@]} | tr ' ' ':'):$HIGH_PRIORITY_PATH"
-
-        # TMP_PATH="$(echo ${related_paths[@]} | tr ' ' ':'):$TMP_PATH"
-    done
-
-    export PATH="$HIGH_PRIORITY_PATH$PATH"
+    export PATH="$priority_path$PATH"
 
     unset __reorder_path
 }
 
-# __reorder_path
+__reorder_path
