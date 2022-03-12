@@ -21,7 +21,7 @@ ln -s "$PWD/d.vimrc" ~/.vimrc
 Check before running each command.
 
 ```bash
-echo "export JH_DOTFILES_DIR=\"$HOME/dotfiles\"" >> ~/.bashrc
+echo "export JH_DOTFILES_DIR=\"\$HOME/dotfiles\"" >> ~/.bashrc
 echo "source \"\$JH_DOTFILES_DIR\"/d.bashrc" >> ~/.bashrc
 
 echo "[[ -r \"\$HOME/.bashrc\" ]] && . \"\$HOME/.bashrc\"" > ~/.bash_profile
