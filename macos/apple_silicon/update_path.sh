@@ -21,19 +21,12 @@ fi
 __reorder_path () {
     local high_priority_keywords=("rbenv" "miniconda" "nvm")
 
-    local unordered_paths=`echo $PATH | tr ":" "\n"`
+    local high_priority_keywords_piped=$(echo -n "${high_priority_keywords[@]}" | tr " " "|")
+    local priority_path=$(echo -n $PATH | tr ":" "\n" | grep -E "${high_priority_keywords_piped}" | sort -u | tr "\n" ":")
 
-    local HIGH_PRIORITY_PATH=""
+    __remove_from_path "${high_priority_keywords[@]}"
 
-    for keyword in ${high_priority_keywords[@]}; do
-        local related_paths=$(echo $unordered_paths | tr " " "\n" | grep "$keyword" | sort -u)
-
-        __remove_from_path "${related_paths[@]}"
-        HIGH_PRIORITY_PATH="$(echo ${related_paths[@]} | tr ' ' ':'):$HIGH_PRIORITY_PATH"
-
-    done
-
-    export PATH="$HIGH_PRIORITY_PATH$PATH"
+    export PATH="$priority_path$PATH"
 
     unset __reorder_path
 }
