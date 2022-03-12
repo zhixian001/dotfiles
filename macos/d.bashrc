@@ -57,12 +57,22 @@ export GPG_TTY=$(tty)
 
 # =================================== #
 
+
 # Bash Completion
+
 BREW_PREFIX=$(brew --prefix)
 
 if [[ -r "$BREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
     source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
     export BASH_COMPLETION_COMPAT_DIR="${BREW_PREFIX}/etc/bash_completion.d"
+
+    # Other Completions (brew)
+    source "$BREW_PREFIX/share/bash-completion/completions/cmake"
+    source "$BREW_PREFIX/share/bash-completion/completions/pigz"
+    source "$BREW_PREFIX/share/bash-completion/completions/psql"
+    source "$BREW_PREFIX/share/bash-completion/completions/gzip"
+    source "$BREW_PREFIX/share/bash-completion/completions/tar"
+    source "$BREW_PREFIX/share/bash-completion/completions/htop"
 fi
 
 
