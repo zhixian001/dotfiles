@@ -32,7 +32,10 @@ alias grep='grep --color=auto'
 
 # PATH
 
-export PATH="/usr/local/sbin:$PATH:/usr/local/Cellar/avr-gcc@8/8.4.0_2/bin"
+# export PATH="/usr/local/sbin:$PATH:/usr/local/Cellar/avr-gcc@8/8.4.0_2/bin"
+
+append_path_leftmost_unique "/usr/local/sbin"
+append_path_rightmost_unique "/usr/local/Cellar/avr-gcc@8/8.4.0_2/bin"
 
 # rbenv path setup
 RBENV_SHIMS_PATH="$HOME/.rbenv/shims"

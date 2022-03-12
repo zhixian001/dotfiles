@@ -10,6 +10,16 @@ pathshow() {
 }
 
 __remove_from_path() {
-   local to_remove=$(echo "$@" | tr " " "|") 
-   export PATH=$(echo $PATH | tr ":" "\n" | grep -vE "$to_remove" | sed -r '/^\s*$/d' | tr "\n" ":")
+   local to_remove=$(echo -n "$@" | tr " " "|") 
+   export PATH=$(echo -n $PATH | tr ":" "\n" | grep -vE "$to_remove" | sed -r '/^\s*$/d' | tr "\n" ":")
+}
+
+append_path_leftmost_unique() {
+    __remove_from_path $1
+    export PATH="$1:$PATH"
+}
+
+append_path_rightmost_unique() {
+    __remove_from_path $1
+    export PATH="$PATH$1"
 }

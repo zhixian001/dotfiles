@@ -9,6 +9,8 @@ if [[ $current_arch == "i386" ]]; then
     __remove_from_path "/opt/homebrew/bin" "/opt/homebrew/sbin" "/opt/homebrew/opt/llvm/bin"
 
     export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+    eval "$(/usr/local/bin/brew shellenv)"
 else
     __remove_from_path "/opt/homebrew/bin" "/opt/homebrew/sbin" "/usr/local/opt/llvm/bin"
 
