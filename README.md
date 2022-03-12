@@ -23,6 +23,6 @@ Check before running each command.
 ```bash
 echo "export JH_DOTFILES_DIR=\"\$HOME/dotfiles\"" >> ~/.bashrc
 echo "source \"\$JH_DOTFILES_DIR\"/d.bashrc" >> ~/.bashrc
-
+cp ~/.bash_profile ~/.bash_profile.backup
 echo "[[ -r \"\$HOME/.bashrc\" ]] && . \"\$HOME/.bashrc\"" > ~/.bash_profile
 ```
