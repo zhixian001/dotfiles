@@ -24,6 +24,5 @@ Check before running each command.
 echo "export JH_DOTFILES_DIR=\"$HOME/dotfiles\"" >> ~/.bashrc
 echo "source \"\$JH_DOTFILES_DIR\"/d.bashrc" >> ~/.bashrc
 
-echo "export JH_DOTFILES_DIR=\"$HOME/dotfiles\"" >> ~/.bash_profile
-echo "source \"\$JH_DOTFILES_DIR\"/d.bash_profile" >> ~/.bash_profile
+echo "[[ -r \"\$HOME/.bashrc\" ]] && . \"\$HOME/.bashrc\"" > ~/.bash_profile
 ```
