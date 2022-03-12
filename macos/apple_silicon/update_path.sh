@@ -23,13 +23,18 @@ __reorder_path () {
 
     local unordered_paths=`echo $PATH | tr ":" "\n" `
 
+    local HIGH_PRIORITY_PATH=""
+
     for keyword in ${high_priority_keywords[@]}; do
         local related_paths=$(echo $unordered_paths | tr " " "\n" | grep "$keyword" | sort -u)
 
         __remove_from_path "${related_paths[@]}"
+        HIGH_PRIORITY_PATH="$(echo ${related_paths[@]} | tr ' ' ':'):$HIGH_PRIORITY_PATH"
 
-        export PATH="$(echo ${related_paths[@]} | tr ' ' ':'):$PATH"
+        # TMP_PATH="$(echo ${related_paths[@]} | tr ' ' ':'):$TMP_PATH"
     done
+
+    export PATH="$HIGH_PRIORITY_PATH$PATH"
 
     unset __reorder_path
 }
