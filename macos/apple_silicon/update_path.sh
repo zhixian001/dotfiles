@@ -39,4 +39,4 @@ __reorder_path () {
     unset __reorder_path
 }
 
-__reorder_path
+# __reorder_path
