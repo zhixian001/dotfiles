@@ -1,5 +1,35 @@
 # Architecture Independent Settings
 
+# Functions
+add_arm_x86_path_entry () {
+   # args
+    #   $1 : arm path value
+    #   $2 : x86 path value
+
+    local current_arch="$(arch)"
+    if [[ $current_arch == "i386" ]]; then
+        __remove_from_path $1
+        append_path_leftmost_unique $2
+    else
+        __remove_from_path $2
+        append_path_leftmost_unique $1
+    fi
+}
+
+add_arm_x86_variable_entry () {
+    # args
+    #   $1 : env variable name
+    #   $2 : arm variable value
+    #   $3 : x86 variable value
+
+    local current_arch="$(arch)"
+    if [[ $current_arch == "i386" ]]; then
+        export $1="$3"
+    else
+        export $1="$2"
+    fi
+}
+
 # Aliases
 # ls
 alias l='gls --color'
