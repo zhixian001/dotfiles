@@ -23,3 +23,9 @@ append_path_rightmost_unique() {
     __remove_from_path $1
     export PATH="$PATH$1"
 }
+
+# VSCode terminal SetMark sequence support
+vscodemark() {
+    echo -e "$@\x1b]1337;SetMark\x07"
+}
+
