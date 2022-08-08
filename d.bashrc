@@ -38,8 +38,8 @@ export PROMPT_DIRTRIM=4
 # Color Generator
 if hash vivid 2>/dev/null; then
     export LS_COLORS="$(vivid generate snazzy)"
-else
-    echo "vivid is not installed"
+#else
+#    echo "vivid is not installed"
 fi
 
 # load common functions
