@@ -47,7 +47,7 @@ if [[ $- == *i* ]]; then
 
     # Print OS Logo
     if [[ -f "$HOME/.oslogo" ]]; then
-        echo '' && base64 --decode "$HOME/.oslogo" | cat && echo ''
+        echo '' && cat "$HOME/.oslogo" | base64 --decode | cat && echo ''
     fi
 
 fi
