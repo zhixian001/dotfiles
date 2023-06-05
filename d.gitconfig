@@ -22,6 +22,8 @@
 [alias]
     stashgrep = "!f() { for i in `git stash list --format=\"%gd\"` ; \
               do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
+    l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+
 
 [commit]
 #    gpgsign    = true
