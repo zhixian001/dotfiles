@@ -31,3 +31,5 @@
 [gpg]
 #    program = gpg
 
+[include]
+    path = ~/dotfiles/d.gitconfig.extension
