@@ -17,15 +17,27 @@ fi
 
 # export FZF_TMUX_OPTS='-p80%,60%'
 
-# https://github.com/junegunn/fzf#respecting-gitignore
-# ignore .gitignore
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+# Using fd
+if command -v "fd" > /dev/null 2>&1; then
+    # https://github.com/junegunn/fzf#respecting-gitignore
+    # ignore .gitignore
+    export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
-# follow symlink, search hidden files
-# export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+    # follow symlink, search hidden files
+    # export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 
-# uncomment this line if add above options
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    # uncomment this line if add above options
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+else
+    echo "bashrc(fzf extension): fd command not exist - using default find command"
+fi
+
+# Check  highlight
+if command -v "highlight" > /dev/null 2>&1; then
+    echo -n ""
+else
+    echo "bashrc(fzf extension): highlight command not exist - using default cat command"
+fi
 
 # custom completion
 _fzf_setup_completion path code
@@ -38,7 +50,9 @@ _fzf_comprun() {
   case "$command" in
     cd)           fzf --border=bottom --preview "ls -l --color=always {}"    "$@" ;;
     export|unset) fzf --border=bottom --preview "eval 'echo \$'{}"         "$@" ;;
-    code|vim)     fzf --border=bottom --preview '[[ -d {} ]] && ls -l --color=always {} || highlight -O ansi {}'     "$@" ;;
+    code|vim)     fzf --border=bottom --preview '[[ -d {} ]] && ls -l --color=always {} || (command -v "highlight" > /dev/null 2>&1 && highlight -O ansi {} || cat {})'     "$@" ;;
     *)            fzf --border=bottom "$@" ;;
   esac
 }
+
+
