@@ -1,0 +1,37 @@
+
+[alias]
+    # ref
+    #   - https://stackoverflow.com/a/57601163
+    #   - https://johngrib.github.io/wiki/git-alias/
+    stashgrep-old = "!# Search string in all stashes [example: git stashgrep -i my_string]\n\
+        f() { for i in `git stash list --format=\"%gd\"` ; \
+              do git stash show -p $i | grep -H --label=\"$i\" \"$@\" ; done ; }; f"
+    
+    stashgrep = "!# Search string in all stashes (v2) [example: git stashgrep2 -i my_string]\n\
+        f() { IFS=$'\n'; for i in $(git stash list --format=\"%gd___%ar___%gs\"); do arr=(); for d in $(echo $i | tr -s \"___\" \"\n\"); do arr+=(\"$d\"); done; results=$(git stash show -p \"${arr[0]}\" |\
+        grep --color=always -H --label=\"\t\" \"$@\"); if [[ -n \"$results\" ]]; then printf '\\e[34m%s\\e[0m' \"${arr[0]}\"; printf \": \"; printf '\\e[33m%s\\e[0m' \"${arr[2]} \"; printf '\\e[32m%s\\e[0m' \"(${arr[1]})\n\"; for result in $results; do printf \"$result\n\"; done fi; done }; f"
+
+	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    s = status -s
+
+    # fzf (https://github.com/junegunn/fzf) required
+    ch = "!# Branch Tool\n\
+        !git checkout $(git bselect)"
+    bselect = "!# select branch with preview; \n\
+        f() { \
+            _height=$(stty size | awk '{print $1}');\
+            git branch | egrep -v '^\\*' | fzf --border --layout=reverse --preview \"git l {1} | head -n $_height\"; \
+        }; f"
+    a = "!# add files with fzf preview diffs; \n\
+        f() { \
+            _height=$(stty size | awk '{print $1}');\
+            git s | fzf --layout=reverse-list -m --border --preview \"git diff {2} | head -n $_height | pygmentize\" | awk '{print $2}' | xargs git add; \
+        }; f"
+    alias = "!# Prints all aliases.;\n\
+        git config --list \
+        | egrep '^alias.+' \
+        | sed -e 's/^alias\\.//' \
+        | sed -e 's/^[^=]*=/\\'$'\\033[31m&\\033[(B\\033[m/' \
+        | column -t -s'=' \
+        | sed 's/!#* *//; s/;$//' \
+        | cut -c1-85"

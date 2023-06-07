@@ -70,3 +70,13 @@ else
     # Unknown
     echo "(bashrc) Unknown OS NAME: ${JH_OS_NAME}"
 fi
+
+# ====================================================================== #
+
+# Extensions (copy these lines to ~/.bashrc and uncomment)
+
+# fzf extension
+#[[ -r "$JH_DOTFILES_DIR/bashrc-extensions/fzf.sh" ]] && . "$JH_DOTFILES_DIR/bashrc-extensions/fzf.sh"
+
+# blsd extension
+#[[ -r "$JH_DOTFILES_DIR/bashrc-extensions/blsd.sh" ]] && . "$JH_DOTFILES_DIR/bashrc-extensions/blsd.sh"
