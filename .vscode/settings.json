@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "d.gitconfig*": "properties",
+        "d.bashrc*": "shellscript",
+        "d.vimrc*": "shellscript",
+        "d.tmux.conf*": "shellscript"
+    }
+}
