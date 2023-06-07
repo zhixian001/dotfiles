@@ -16,7 +16,7 @@
 
     # fzf (https://github.com/junegunn/fzf) required
     ch = "!# Branch Tool\n\
-        !git checkout $(git bselect)"
+        git checkout $(git bselect)"
     bselect = "!# select branch with preview; \n\
         f() { \
             _height=$(stty size | awk '{print $1}');\
