@@ -61,7 +61,14 @@ function fzf-man(){
         $MAN "$@"
         return $?
     else
-        $MAN -k . 2> /dev/null | fzf --reverse --preview="echo {1,2} | sed 's/ (/./' | sed -E 's/\)\s*$//' | xargs $MAN" | awk '{print $1 "." $2}' | tr -d '()' | xargs -r $MAN
+        #$MAN -k . 2> /dev/null | fzf --reverse --preview="echo {1,2} | sed 's/ (/./' | sed -E 's/\)\s*$//' | xargs $MAN" | awk '{print $1 "." $2}' | tr -d '()' | xargs -r $MAN
+        $MAN -k . 2> /dev/null |\
+            fzf --reverse --preview="echo {1,2} | sed 's/ (/./' | sed -E 's/\)\s*$//' | awk '{print $1}' | sed -E 's/(\([0-9]+\))//' | xargs $MAN" |\
+
+            #fzf --reverse --preview="echo {1,2} | sed 's/ (/./' | sed -E 's/\)\s*$//' | xargs $MAN" |\
+            #awk '{print $1 "." $2}' |\
+            awk '{print $1}' |\
+            sed -E 's/(\([0-9]+\))//' | xargs -r $MAN
         return $?
     fi
 }
