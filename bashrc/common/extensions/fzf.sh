@@ -53,7 +53,7 @@ _fzf_comprun() {
     vim)
         local FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --exclude node_module"
         fzf --border=none \
-            --preview '[[ -d {} ]] && ls -l --color=always {} || (command -v "highlight" > /dev/null 2>&1 && highlight -O ansi {} || cat {})' \
+            --preview '[[ -d {} ]] && ls -l --color=always {} || (command -v "highlight" > /dev/null 2>&1 && highlight -O truecolor --style darkplus {} || cat {})' \
             "$@" # --preview-window right,100,border-horizontal \
         ;;
     *) fzf --border=bottom "$@" ;;
