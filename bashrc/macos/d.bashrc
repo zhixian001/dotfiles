@@ -1,8 +1,8 @@
 # Architecture Independent Settings
 
 # Functions
-add_arm_x86_path_entry () {
-   # args
+add_arm_x86_path_entry() {
+    # args
     #   $1 : arm path value
     #   $2 : x86 path value
 
@@ -16,7 +16,7 @@ add_arm_x86_path_entry () {
     fi
 }
 
-add_arm_x86_variable_entry () {
+add_arm_x86_variable_entry() {
     # args
     #   $1 : env variable name
     #   $2 : arm variable value
@@ -27,6 +27,45 @@ add_arm_x86_variable_entry () {
         export $1="$3"
     else
         export $1="$2"
+    fi
+}
+
+# mac alert utility
+export __ALERT_MAC_SOUND_NAME=Hero # See: /System/Library/Sounds/
+alert-mac() {
+    local title=""
+    local subtitle=""
+    local message=""
+
+    # case - number of params
+    case "$#" in
+    1)
+        message="$1"
+        ;;
+    2)
+        title="$1"
+        message="$2"
+        ;;
+    3)
+        title="$1"
+        subtitle="$2"
+        message="$3"
+        ;;
+    *)
+        echo "Usage: alert-mac [title] [subtitle] message"
+        echo "       alert-mac title message"
+        echo "       alert-mac message"
+        return 1
+        ;;
+    esac
+
+    # run AppleScript
+    if [[ -n "$title" ]] && [[ -n "$subtitle" ]]; then
+        osascript -e "display notification \"$message\" with title \"$title\" subtitle \"$subtitle\" sound name \"$__ALERT_MAC_SOUND_NAME\""
+    elif [[ -n "$title" ]]; then
+        osascript -e "display notification \"$message\" with title \"$title\" sound name \"$__ALERT_MAC_SOUND_NAME\""
+    else
+        osascript -e "display notification \"$message\" sound name \"$__ALERT_MAC_SOUND_NAME\""
     fi
 }
 
@@ -56,10 +95,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 export GPG_TTY=$(tty)
 
-
-
 # =================================== #
-
 
 # Bash Completion
 
@@ -78,12 +114,11 @@ if [[ -r "$BREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
     source "$BREW_PREFIX/share/bash-completion/completions/htop"
 fi
 
-
 # ====================================================================== #
 
 # Architecture Dependent Settings
 
-JH_CURRENT_CPU=$(sysctl -a | grep machdep.cpu.brand_string | tr " " "\n" |  grep M1)
+JH_CURRENT_CPU=$(sysctl -a | grep machdep.cpu.brand_string | tr " " "\n" | grep M1)
 if [[ $JH_CURRENT_CPU == "M1" ]]; then
     # M1 CPU
     for f in $JH_DOTFILES_DIR/bashrc/macos/apple_silicon/*.sh; do
