@@ -57,3 +57,18 @@ __source_files_in_dir_with_extension() {
         fi
     done
 }
+
+# find package json (ascends to parent dir)
+__find_package_json() {
+    local current_dir=$(pwd)
+
+    while [ "$current_dir" != "/" ]; do
+        if [ -f "$current_dir/package.json" ]; then
+            echo "$current_dir/package.json"
+            return
+        fi
+        current_dir=$(dirname "$current_dir")
+    done
+
+    return 1
+}
