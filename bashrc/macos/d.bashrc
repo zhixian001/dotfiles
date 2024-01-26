@@ -74,7 +74,7 @@ alert() {
     elif [[ -n "$title" ]]; then
         osascript -e "display notification \"$message\" with title \"$title\" sound name \"$__ALERT_MAC_SOUND_NAME\""
     else
-        osascript -e "display notification \"$message\" sound name \"$__ALERT_MAC_SOUND_NAME\""
+        osascript -e "display notification \"$message\" with title \"📣 Alert 🐭\" sound name \"$__ALERT_MAC_SOUND_NAME\""
     fi
 }
 
