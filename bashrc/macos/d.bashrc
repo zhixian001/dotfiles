@@ -32,29 +32,38 @@ add_arm_x86_variable_entry() {
 
 # mac alert utility
 export __ALERT_MAC_SOUND_NAME=Hero # See: /System/Library/Sounds/
-alert-mac() {
+alert() {
+    if [[ -t 0 ]]; then
+        # Arguments passed directly
+        ARGS=("$@")
+    else
+        # Arguments passed from pipe
+        read -r line
+        ARGS=($line)
+    fi
+
     local title=""
     local subtitle=""
     local message=""
 
     # case - number of params
-    case "$#" in
+    case "${#ARGS[@]}" in
     1)
-        message="$1"
+        message="${ARGS[0]}"
         ;;
     2)
-        title="$1"
-        message="$2"
+        title="${ARGS[0]}"
+        message="${ARGS[1]}"
         ;;
     3)
-        title="$1"
-        subtitle="$2"
-        message="$3"
+        title="${ARGS[0]}"
+        subtitle="${ARGS[1]}"
+        message="${ARGS[2]}"
         ;;
     *)
-        echo "Usage: alert-mac [title] [subtitle] message"
-        echo "       alert-mac title message"
-        echo "       alert-mac message"
+        echo "Usage: alert [title] [subtitle] message"
+        echo "       alert title message"
+        echo "       alert message"
         return 1
         ;;
     esac
