@@ -52,20 +52,24 @@ if [[ $- == *i* ]]; then
 
 fi
 
-# load common functions
-[[ -r "$JH_DOTFILES_DIR/common_bash_functions.sh" ]] && . "$JH_DOTFILES_DIR/common_bash_functions.sh"
-
 # ====================================================================== #
+# load common functions
+[[ -r "$JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh" ]] && . "$JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh"
+# ====================================================================== #
+# load aliases
+__source_files_in_dir_with_extension $JH_DOTFILES_DIR/bashrc/common/aliases ".alias.sh"
+# ====================================================================== #
+
 
 # OS Dependent settings
 JH_OS_NAME="$(uname -s)"
 
 if [[ $JH_OS_NAME == "Darwin" ]]; then
     # Mac OS
-    [[ -r "$JH_DOTFILES_DIR/macos/d.bashrc" ]] && . "$JH_DOTFILES_DIR/macos/d.bashrc"
+    [[ -r "$JH_DOTFILES_DIR/bashrc/macos/d.bashrc" ]] && . "$JH_DOTFILES_DIR/bashrc/macos/d.bashrc"
 elif [[ $JH_OS_NAME == "Linux" ]]; then
     # Linux
-    [[ -r "$JH_DOTFILES_DIR/linux/d.bashrc" ]] && . "$JH_DOTFILES_DIR/linux/d.bashrc"
+    [[ -r "$JH_DOTFILES_DIR/bashrc/linux/d.bashrc" ]] && . "$JH_DOTFILES_DIR/bashrc/linux/d.bashrc"
 else
     # Unknown
     echo "(bashrc) Unknown OS NAME: ${JH_OS_NAME}"
@@ -76,7 +80,7 @@ fi
 # Extensions (copy these lines to ~/.bashrc and uncomment)
 
 # fzf extension
-#[[ -r "$JH_DOTFILES_DIR/bashrc-extensions/fzf.sh" ]] && . "$JH_DOTFILES_DIR/bashrc-extensions/fzf.sh"
+#[[ -r "$JH_DOTFILES_DIR/bashrc/common/extensions/fzf.sh" ]] && . "$JH_DOTFILES_DIR/bashrc/common/extensions/fzf.sh"
 
 # blsd extension
-#[[ -r "$JH_DOTFILES_DIR/bashrc-extensions/blsd.sh" ]] && . "$JH_DOTFILES_DIR/bashrc-extensions/blsd.sh"
+#[[ -r "$JH_DOTFILES_DIR/bashrc/common/extensions/blsd.sh" ]] && . "$JH_DOTFILES_DIR/bashrc/common/extensions/blsd.sh"
