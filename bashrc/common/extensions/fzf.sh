@@ -40,8 +40,8 @@ else
 fi
 
 # custom completion
-_fzf_setup_completion path code
 _fzf_setup_completion host ping
+_fzf_setup_completion path ag
 
 _fzf_comprun() {
     local command=$1
@@ -59,7 +59,6 @@ _fzf_comprun() {
     *) fzf --border=bottom "$@" ;;
     esac
 }
-_fzf_setup_completion path ag cr
 
 function fzf-man() {
     MAN="/usr/bin/man"
