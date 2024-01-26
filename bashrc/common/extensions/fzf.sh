@@ -79,13 +79,26 @@ function fzf-man() {
 }
 
 # pnpm run completion
-_fzf_complete_pnr_alias() {
+_fzf_complete_node_package_script_alias() {
     local FZF_COMPLETION_TRIGGER=''
+
+    local node_package_manager=''
+
+    if [[ $1 == pn* ]]; then
+        node_package_manager="pnpm"
+    elif [[ $1 == np* ]]; then
+        node_package_manager="npm"
+    elif [[ $1 == yr* ]]; then
+        node_package_manager="yarn"
+    else
+        node_package_manager='?'
+    fi
+
     local package_json=$(__find_package_json)
     _fzf_complete --no-multi \
         --reverse \
         --height=10 \
-        --prompt="pnpm run ⚡️ " \
+        --prompt="$node_package_manager run ⚡️ " \
         --cycle \
         --preview "cat $package_json | jq -r '(\"⚡️ \" + .scripts[\"{}\"])' | highlight --syntax bash -O truecolor --style darkplus" \
         --border=bottom -- "$@" < <(
@@ -99,9 +112,15 @@ _fzf_complete_pnr_alias() {
             cat $package_json | jq -r '.scripts | keys[] ' | sort
         )
 }
-[ -n "$BASH" ] && \
-    command -v "pnpm" >/dev/null 2>&1 && \
-    complete -F _fzf_complete_pnr_alias -o default -o bashdefault pnr
+[ -n "$BASH" ] &&
+    command -v "pnpm" >/dev/null 2>&1 &&
+    complete -F _fzf_complete_node_package_script_alias -o default -o bashdefault pnr
+[ -n "$BASH" ] &&
+    command -v "yarn" >/dev/null 2>&1 &&
+    complete -F _fzf_complete_node_package_script_alias -o default -o bashdefault yrr
+[ -n "$BASH" ] &&
+    command -v "npm" >/dev/null 2>&1 &&
+    complete -F _fzf_complete_node_package_script_alias -o default -o bashdefault npr
 
 _fzf_complete_code_editor_open() {
     local FZF_COMPLETION_TRIGGER=''
