@@ -40,7 +40,7 @@ else
 fi
 
 # custom completion
-if ! declare -f _fzf_setup_completion > /dev/null; then
+if declare -f _fzf_setup_completion > /dev/null; then
     _fzf_setup_completion host ping
     _fzf_setup_completion path ag
 fi
