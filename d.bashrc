@@ -60,7 +60,7 @@ if [[ -r "$JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh" ]]; then
 fi
 # ====================================================================== #
 # load aliases
-__dotfiles_debug_log "Loading aliases from: $JH_DOTFILES_DIR/bashrc/common/aliases"
+__dotfiles_debug_log "${__DEBUG_BLUE}Loading aliases from:${__DEBUG_RESET} ${__DEBUG_GRAY}$JH_DOTFILES_DIR/bashrc/common/aliases${__DEBUG_RESET}"
 __source_files_in_dir_with_extension $JH_DOTFILES_DIR/bashrc/common/aliases ".alias.sh"
 # ====================================================================== #
 
@@ -70,16 +70,16 @@ JH_OS_NAME="$(uname -s)"
 
 if [[ $JH_OS_NAME == "Darwin" ]]; then
     # Mac OS
-    __dotfiles_debug_log "Detected macOS, loading macOS-specific bashrc"
+    __dotfiles_debug_log "${__DEBUG_GREEN}Detected ${__DEBUG_BOLD}macOS${__DEBUG_RESET}${__DEBUG_GREEN}, loading macOS-specific bashrc${__DEBUG_RESET}"
     [[ -r "$JH_DOTFILES_DIR/bashrc/macos/d.bashrc" ]] && . "$JH_DOTFILES_DIR/bashrc/macos/d.bashrc"
 elif [[ $JH_OS_NAME == "Linux" ]]; then
     # Linux
-    __dotfiles_debug_log "Detected Linux, loading Linux-specific bashrc"
+    __dotfiles_debug_log "${__DEBUG_GREEN}Detected ${__DEBUG_BOLD}Linux${__DEBUG_RESET}${__DEBUG_GREEN}, loading Linux-specific bashrc${__DEBUG_RESET}"
     [[ -r "$JH_DOTFILES_DIR/bashrc/linux/d.bashrc" ]] && . "$JH_DOTFILES_DIR/bashrc/linux/d.bashrc"
 else
     # Unknown
     echo "(bashrc) Unknown OS NAME: ${JH_OS_NAME}"
-    __dotfiles_debug_log "Unknown OS detected: ${JH_OS_NAME}"
+    __dotfiles_debug_log "${__DEBUG_YELLOW}Unknown OS detected: ${__DEBUG_BOLD}${JH_OS_NAME}${__DEBUG_RESET}"
 fi
 
 # ====================================================================== #
