@@ -54,9 +54,13 @@ fi
 
 # ====================================================================== #
 # load common functions
-[[ -r "$JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh" ]] && . "$JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh"
+if [[ -r "$JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh" ]]; then
+    [[ -n "$JH_DOTFILES_DEBUG" ]] && echo "[DOTFILES-DEBUG $(date '+%H:%M:%S')] Loading common functions: $JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh" >&2
+    . "$JH_DOTFILES_DIR/bashrc/common/common_bash_functions.sh"
+fi
 # ====================================================================== #
 # load aliases
+__dotfiles_debug_log "Loading aliases from: $JH_DOTFILES_DIR/bashrc/common/aliases"
 __source_files_in_dir_with_extension $JH_DOTFILES_DIR/bashrc/common/aliases ".alias.sh"
 # ====================================================================== #
 
@@ -66,13 +70,16 @@ JH_OS_NAME="$(uname -s)"
 
 if [[ $JH_OS_NAME == "Darwin" ]]; then
     # Mac OS
+    __dotfiles_debug_log "Detected macOS, loading macOS-specific bashrc"
     [[ -r "$JH_DOTFILES_DIR/bashrc/macos/d.bashrc" ]] && . "$JH_DOTFILES_DIR/bashrc/macos/d.bashrc"
 elif [[ $JH_OS_NAME == "Linux" ]]; then
     # Linux
+    __dotfiles_debug_log "Detected Linux, loading Linux-specific bashrc"
     [[ -r "$JH_DOTFILES_DIR/bashrc/linux/d.bashrc" ]] && . "$JH_DOTFILES_DIR/bashrc/linux/d.bashrc"
 else
     # Unknown
     echo "(bashrc) Unknown OS NAME: ${JH_OS_NAME}"
+    __dotfiles_debug_log "Unknown OS detected: ${JH_OS_NAME}"
 fi
 
 # ====================================================================== #
