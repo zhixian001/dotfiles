@@ -14,6 +14,10 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+
+set background=dark
+silent! colorscheme slate
+
 set noshiftround
 set scrolloff=5
 set backspace=indent,eol,start
@@ -60,4 +64,3 @@ endif
 
 " Import local config
 source ~/.vimrc.local
-
