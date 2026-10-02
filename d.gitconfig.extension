@@ -35,3 +35,11 @@
         | column -t -s'=' \
         | sed 's/!#* *//; s/;$//' \
         | cut -c1-85"
+
+    # open remote repo in browser (https/ssh, credentials stripped)
+    open = "!# Open origin repo in browser;\n\
+        f() { \
+            url=$(git config --get remote.${1:-origin}.url) || exit 1; \
+            url=$(echo \"$url\" | sed -E 's#^[a-z+]+://([^@/]*@)?([^:/]+)(:[0-9]+)?/#https://\\2/#; s#^[^@/]+@([^:/]+):#https://\\1/#; s#[.]git/?$##'); \
+            echo \"$url\"; (open \"$url\" || xdg-open \"$url\") 2>/dev/null; \
+        }; f"
